@@ -27,11 +27,6 @@
         transform: translateY(-5px);
     }
     
-    .trend-card img {
-        height: 220px;
-        object-fit: cover;
-    }
-    
     .chart-box {
         height: 280px;
         padding: 15px;
@@ -50,26 +45,25 @@
 
             <div class="card trend-card">
 
-                <img src="{{ url_for('static', filename='images/trends/' + item.image) }}" class="card-img-top" alt="{{ item.name }}">
-
                 <div class="card-body">
 
                     <h5 class="text-center">{{ item.name }}</h5>
 
                     <div class="chart-box">
                         <canvas class="trendChart" data-labels='{{ labels | tojson }}' data-values='{{ item["values"] | tojson }}'>
-</canvas>
+                        </canvas>
                     </div>
 
                 </div>
+
             </div>
 
         </div>
         {% endfor %}
 
     </div>
-</div>
 
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -89,8 +83,7 @@
                     datasets: [{
                         label: "Trend popularity",
                         data: values,
-                        borderColor: "#ff6384",
-                        backgroundColor: "rgba(255,99,132,0.2)",
+                        borderColor: "blue",
                         fill: true,
                         tension: 0.3
                     }]
@@ -105,7 +98,6 @@
                         }
                     }
                 }
-
             });
 
         });
