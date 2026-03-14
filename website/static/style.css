@@ -1,0 +1,158 @@
+.home-page * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.home-page .body {
+    color: white;
+    background-color: black;
+}
+
+.home-page .background {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.home-page .background .left-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background-image: url("https://assets.vogue.com/photos/5877295071b368a625a0a73c/master/w_1024%2Cc_limit/iconic-american-models-08_174307366676.jpg");
+    background-size: cover;
+    background-position: top;
+}
+
+.home-page .background .right-image {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background-image: url("https://cms.showstudio.com/images/haxLxhK_nVoONrF6gNxKkCRuxJ4=/516656/width-2880/1-M23_1-1_UNBRANDED10.jpg");
+    background-size: cover;
+    background-position: top;
+}
+
+html,
+body {
+    overflow-x: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.home-page .button {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    cursor: pointer;
+    display: block;
+    padding: 0 1.5em;
+    height: 3em;
+    line-height: 2.9em;
+    min-width: 3em;
+    background-color: transparent;
+    border: solid 2px white;
+    color: white;
+    border-radius: 4px;
+    text-align: center;
+    left: 21%;
+    top: 80%;
+    backface-visibility: hidden;
+    transition: 0.3s ease-in-out;
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+    position: absolute;
+}
+
+.home-page .button1 {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    cursor: pointer;
+    display: block;
+    padding: 0 1.5em;
+    height: 3em;
+    line-height: 2.9em;
+    min-width: 3em;
+    background-color: transparent;
+    border: solid 2px white;
+    color: white;
+    border-radius: 4px;
+    text-align: center;
+    left: 70%;
+    top: 80%;
+    backface-visibility: hidden;
+    transition: 0.3s ease-in-out;
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+    position: absolute;
+}
+
+.home-page .button:hover {
+    background-color: #fff;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+    text-shadow: none;
+    color: black;
+}
+
+.home-page .button1:hover {
+    background-color: #fff;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+    text-shadow: none;
+    color: black;
+}
+
+
+/* Navbar buttons */
+
+.navbar-nav .nav-link {
+    margin-left: 8px;
+}
+
+
+/* normal buttons */
+
+.btn-nav {
+    background: rgba(255, 255, 255, 0.12);
+    color: black !important;
+    padding: 6px 16px !important;
+    border-radius: 20px;
+    transition: 0.25s;
+}
+
+.btn-nav:hover {
+    background: white;
+    color: black !important;
+}
+
+
+/* sign up highlight */
+
+.btn-signup {
+    background: linear-gradient(135deg, #1e3a8a, #636b2f);
+    color: white !important;
+    padding: 6px 16px !important;
+    border-radius: 20px;
+}
+
+.btn-signup:hover {
+    opacity: 0.85;
+}
+
+
+/* logout button */
+
+.btn-logout {
+    background: #dc3545;
+    color: white !important;
+    padding: 6px 16px !important;
+    border-radius: 20px;
+}
+
+.btn-logout:hover {
+    background: #b02a37;
+}

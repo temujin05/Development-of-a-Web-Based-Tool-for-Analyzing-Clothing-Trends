@@ -1,0 +1,79 @@
+{% extends "base.html" %} {% block title %}Item Trend{% endblock %} {% block content %}
+<div class="container mt-4">
+
+    <h1 class="text-center">Clothing Trend Analysis</h1>
+    <p class="text-muted text-center">
+        Popularity trends of this clothing item over recent years
+    </p>
+
+    <div class="row mt-5">
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-dark">
+                <div class="card-header bg-dark text-white">
+                    Item Details
+                </div>
+
+                <div class="card-body">
+                    <h5>{{ item.name }}</h5>
+                    <p><strong>Color:</strong> {{ item.color }}</p>
+                    <p><strong>Material:</strong> {{ item.material }}</p>
+                    <p><strong>Price:</strong> ${{ item.price }}</p>
+
+                    <a href="{{ url_for('views.items') }}" class="btn btn-outline-dark mt-3">
+                        ← Back to items
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card shadow-sm border-dark">
+                <div class="card-header bg-dark text-white">
+                    Popularity Trend
+                </div>
+
+                <div class="card-body">
+                    <canvas id="trendChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", async function() {
+
+        const response = await fetch("/api/trend/{{ item.id }}");
+        const data = await response.json();
+
+        const ctx = document.getElementById("trendChart").getContext("2d");
+
+        new Chart(ctx, {
+            type: "line",
+            data: {
+                labels: data.labels,
+                datasets: [{
+                    label: "Popularity",
+                    data: data.popularity,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+
+{% endblock %}

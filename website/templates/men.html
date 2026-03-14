@@ -1,0 +1,159 @@
+{% extends "base.html" %} {% block title %}Men{% endblock %} {% block body_class %}men-page{% endblock %} {% block extra_head %}
+<style>
+     :root {
+        --accent: #05081c;
+        --muted: #6b7280;
+        --radius: 12px;
+        --glass: rgba(255, 255, 255, 0.06);
+    }
+    
+    body {
+        font-family: 'Arial Black', Arial, sans-serif;
+        background: #fff;
+        color: #111;
+    }
+    
+    .hero {
+        height: 60vh;
+        background: linear-gradient(135deg, #1e3a8a 0%, #636b2f 100%);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding-top: 6rem;
+    }
+    
+    .hero .avatar {
+        width: 220px;
+        height: 210px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.12);
+        padding: 12px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    }
+    
+    .section {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+    }
+    
+    .accent {
+        color: var(--accent);
+        font-weight: 700;
+    }
+    
+    .card-img-top {
+        height: 190px;
+        object-fit: cover;
+        background: #f4f6fb;
+    }
+    
+    .fav {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3));
+        border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    @media(max-width:800px) {
+        .hero {
+            height: 20vh
+        }
+        .card-img-top {
+            height: 160px
+        }
+        .avatar {
+            width: 90px;
+            height: 90px
+        }
+    }
+</style>
+{% endblock %} {% block content %}
+
+<header class="hero d-flex align-items-center text-center">
+    <div class="container">
+        <h1 class="display-5 text-white">Men’s Fashion: Past, Present, and Trends</h1>
+        <p class="lead text-white">Explore history, revolutions, and the trends!</p>
+    </div>
+</header>
+
+<main class="mt-5">
+
+    <section id="trending-charts" class="section py-5" style="background : url('https://wallpapers.com/images/hd/newspaper-aesthetic-vintage-tabloids-cu9bihqi76r5b76c.jpg') no-repeat center center; background-size: cover; background-attachment: fixed; color:white;">
+        <div class="container">
+            <h2 class="mb-4">Latest Trending Charts of Clothes</h2>
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img src="https://codeontime.com/blog/2015/03/line-chart-type/image08.png" alt="card-img-top" alt="Chart">
+                        <div class="card-footer text-end">
+                            <a class="btn btn-sm btn-outline-primary" href="mentrends" target="_blank">View</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img src="{{ url_for('static', filename='img/items.png') }}" class="card-img-top" alt="Items">
+                        <div class="card-footer text-end">
+                            <a class="btn btn-sm btn-outline-primary" href="itemsmen" target="_blank">View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id=" fashion-history " class="section py-5 ">
+        <div class="container ">
+            <h2 class="mb-4 ">History</h2>
+            <div class="row g-4 ">
+                <div class="col-md-4 ">
+                    <div class="card h-100 shadow-sm ">
+                        <img src="https://fashionhistory.fitnyc.edu/wp-content/uploads/2018/05/FHT21.jpg" class="card-img-top " alt="1920s">
+                        <div class="card-body ">
+                            <h5 class="card-title ">1920s</h5>
+                            <p class="card-text ">Men moved away from starched collars and formal three-piece suits during the day. Instead, they adopted soft collars and one- or two-button suit jackets often worn without a waistcoat as seen in the different styles shown on
+                                the fashion plate in the picture</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 ">
+                    <div class="card h-100 shadow-sm ">
+                        <img src="https://media.gq-magazine.co.uk/photos/5d138e0c2881cc202f0a7786/master/w_2048%2Cc_limit/Buddy-Holly-GQ-16Jul15_getty_b.jpg" class="card-img-top " alt="1950s">
+                        <div class="card-body ">
+                            <h5 class="card-title ">1950s</h5>
+                            <p class="card-text ">Those post-War stars of stage, screen and musical score had a feel for tailoring that has never been bettered. Both in Europe and America, male celebrities in the 1950s had an appreciation for sharp suiting - new wave of young
+                                upstarts like Elvis and James Dean stuck it to the establishment with colourful clothes and quiffs.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 ">
+                    <div class="card h-100 shadow-sm ">
+                        <img src="https://fashionhistory.fitnyc.edu/wp-content/uploads/2019/09/1970sLee21.jpg" class="card-img-top " alt="1970s">
+                        <div class="card-body ">
+                            <h5 class="card-title ">1970s</h5>
+                            <p class="card-text ">In the early 1970s, men’s fashion tried to emphasize a tall, lean figure. Turtlenecks, slim-fitting shirts, and tight-fitting flared pants all worked to popularize the silhouette.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="fashion-revolution " class="section py-5 bg-light ">
+        <div class="container ">
+            <h2 class="mb-4 ">The Revolution</h2>
+            <div class="row g-4 ">
+                <div class="col-md-6 ">
+                    <div class="card h-100 shadow-sm text-center p-3 ">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Los_Gatos_estamapados.jpeg/500px-Los_Gatos_estamapados.jpeg" class="card-img-top mb-3 " alt="Revolution ">
+                        <p>The Peacock Revolution - Men incorporating feminine fashion elements such as floral prints, bright colours and complex patterns,</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+{% endblock %}

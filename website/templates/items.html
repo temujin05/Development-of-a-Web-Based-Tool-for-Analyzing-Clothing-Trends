@@ -1,0 +1,96 @@
+{% extends "base.html" %} {% block title %}Women's Clothing{% endblock %} {% block content %}
+<div class="container mt-4">
+    <h2>Women's Clothing</h2>
+
+    {% for category, items in grouped_items.items() %}
+    <div class="category-section">
+
+        <button class="category-btn" onclick="toggleCategory(this)">
+            ▶ {{ category }}
+        </button>
+
+        <div class="items-grid category-content">
+            {% for item in items %}
+            <a href="{{ url_for('views.item_detail', item_id=item.id) }}" class="item-link">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.name }}</h5>
+                        <p>Color: {{ item.color }}</p>
+                        <p>Material: {{ item.material }}</p>
+                        <p>Price: ${{ item.price }}</p>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+
+    </div>
+    {% endfor %}
+</div>
+
+<style>
+    .category-btn {
+        width: 100%;
+        background: black;
+        color: white;
+        border: none;
+        padding: 12px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        text-align: left;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+    
+    .category-btn:hover {
+        background: gray;
+    }
+    
+    .category-content {
+        display: none;
+        margin-top: 15px;
+    }
+    
+    .items-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 20px;
+    }
+    
+    .card {
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        background: white;
+        transition: transform 0.2s;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .card:hover {
+        transform: scale(1.03);
+    }
+    
+    .card-body {
+        padding: 10px;
+    }
+    
+    .item-link {
+        text-decoration: none;
+        color: inherit;
+    }
+</style>
+
+<script>
+    function toggleCategory(button) {
+        const content = button.nextElementSibling;
+
+        if (content.style.display === "grid") {
+            content.style.display = "none";
+            button.innerHTML = button.innerHTML.replace("▼", "▶");
+        } else {
+            content.style.display = "grid";
+            button.innerHTML = button.innerHTML.replace("▶", "▼");
+        }
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "base.html" %} {% block title %}Trend Analysis{% endblock %} {% block content %}
+<div class="container mt-4">
+    <h1 class="text-center">Clothing Trend Dashboard</h1>
+    <p class="text-muted text-center">Data-driven insights for your wardrobe</p>
+
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <div class="card shadow-sm border-primary">
+                <div class="card-header bg-primary text-white">
+                    Recommended Picks
+                </div>
+
+                <ul class="list-group list-group-flush">
+                    {% for rec in recommendations %}
+                    <a href="/trend/{{ rec.id }}" class="list-group-item list-group-item-action">
+                        <strong>{{ rec.name }}</strong><br>
+                        <small class="text-muted">
+                            {{ rec.color }} | {{ rec.material }}
+                        </small>
+                        <span class="badge bg-success float-end">
+                            {{ rec.rating }} ★
+                        </span>
+                    </a>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <h3 class="text-center mb-4">Trending Styles</h3>
+
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <img src="https://i.pinimg.com/1200x/5d/dc/f6/5ddcf665631969119ef62aeeb14ee11d.jpg" class="img-fluid rounded shadow">
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <img src="https://i.pinimg.com/736x/0e/e3/f4/0ee3f4c533097a1a8751ead889a1995c.jpg" class="img-fluid rounded shadow">
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <img src="https://i.pinimg.com/736x/a9/53/2f/a9532f523c0410ef0fd47f38f37b6c3a.jpg" class="img-fluid rounded shadow">
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <img src="https://i.pinimg.com/1200x/c2/03/ca/c203ca5cbe7285a147b54c70193fa42e.jpg" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

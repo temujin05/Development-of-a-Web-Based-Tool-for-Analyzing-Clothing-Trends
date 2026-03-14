@@ -1,0 +1,116 @@
+{% extends "base.html" %} {% block title %}Women's Clothing Trends{% endblock %} {% block content %}
+
+<style>
+    .women-trends {
+        padding: 40px 0;
+    }
+    
+    .women-trends h1 {
+        text-align: center;
+        font-weight: bold;
+    }
+    
+    .subtitle {
+        text-align: center;
+        color: #666;
+        margin-bottom: 40px;
+    }
+    
+    .trend-card {
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: 0.3s;
+        margin-bottom: 30px;
+    }
+    
+    .trend-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .trend-card img {
+        height: 220px;
+        object-fit: cover;
+    }
+    
+    .chart-box {
+        height: 280px;
+        padding: 15px;
+    }
+</style>
+
+<div class="container women-trends">
+
+    <h1>Women's Fashion Trends</h1>
+    <p class="subtitle">Popular clothing styles based on trend data analysis</p>
+
+    <div class="row">
+
+        {% for item in items %}
+        <div class="col-md-6">
+
+            <div class="card trend-card">
+
+                <img src="{{ url_for('static', filename='images/trends/' + item.image) }}" class="card-img-top" alt="{{ item.name }}">
+
+                <div class="card-body">
+
+                    <h5 class="text-center">{{ item.name }}</h5>
+
+                    <div class="chart-box">
+                        <canvas class="trendChart" data-labels='{{ labels | tojson }}' data-values='{{ item["values"] | tojson }}'>
+</canvas>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+
+        document.querySelectorAll(".trendChart").forEach(canvas => {
+
+            const labels = JSON.parse(canvas.dataset.labels);
+            const values = JSON.parse(canvas.dataset.values);
+
+            new Chart(canvas, {
+                type: "line",
+
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: "Trend popularity",
+                        data: values,
+                        borderColor: "#ff6384",
+                        backgroundColor: "rgba(255,99,132,0.2)",
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+
+            });
+
+        });
+
+    });
+</script>
+
+{% endblock %}
