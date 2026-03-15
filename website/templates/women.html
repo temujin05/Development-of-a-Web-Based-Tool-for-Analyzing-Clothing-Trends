@@ -1,36 +1,35 @@
 {% extends "base.html" %} {% block title %}Women{% endblock %} {% block body_class %}women-page{% endblock %} {% block extra_head %}
 <style>
      :root {
-        --accent: #05081c;
-        --muted: #6b7280;
+        --accent: midnightblue;
+        --muted: black;
         --radius: 12px;
-        --glass: rgba(255, 255, 255, 0.06);
+        --glass: rgba(0, 0, 0, 0.06);
     }
     
     body {
-        font-family: 'Arial Black', Arial, sans-serif;
-        background: #fff;
-        color: #111;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        background: white;
+        color: black;
     }
     
     .hero {
-        height: 60vh;
-        background: linear-gradient(135deg, black, 0%, #636b2f 100%);
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        background: white;
+        color: black;
+        border-radius: 12px;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        padding: 3rem 2rem;
         text-align: center;
-        padding-top: 6rem;
+        margin: 2rem auto;
+        max-width: 900px;
+        min-height: auto;
+        height: auto;
     }
     
-    .hero .avatar {
-        width: 220px;
-        height: 210px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.12);
-        padding: 12px;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    .hero h1 {
+        font-size: 3rem;
+        color: black;
+        margin-bottom: 3rem;
     }
     
     .section {
@@ -40,60 +39,98 @@
     
     .accent {
         color: var(--accent);
-        font-weight: 700;
+        font-weight: bold;
+    }
+    
+    .trending-section {
+        background-image: url("https://images.unsplash.com/photo-1638874085157-91988ffd3fe5?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGFyaXMlMjBzdHJlZXR8ZW58MHx8MHx8fDA%3D");
+        background-size: cover;
+    }
+    
+    .card {
+        overflow: hidden;
+        border: none;
+        border-radius: var(--radius);
     }
     
     .card-img-top {
-        height: 190px;
+        width: 100%;
+        height: 220px;
         object-fit: cover;
-        background: #f4f6fb;
+        display: block;
+        background: whitesmoke;
     }
     
-    .fav {
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3));
-        border: 1px solid rgba(0, 0, 0, 0.05);
+    .card-body {
+        display: flex;
+        flex-direction: column;
     }
     
-    @media(max-width:800px) {
+    .card-text {
+        flex-grow: 1;
+        color: black;
+    }
+    
+    .card-footer {
+        background: white;
+        border-top: 1px solid gainsboro;
+        text-align: center;
+    }
+    
+    .back-button {
+        display: inline-block;
+        padding: 5px 10px;
+        background-color: black;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 1.2rem;
+        transition: background-color 0.3s;
+        justify-content: left;
+    }
+    
+    a.back-button:hover {
+        background-color: black;
+    }
+    
+    @media (max-width: 800px) {
         .hero {
-            height: 20vh
+            height: 30vh;
+            padding-top: 3rem;
         }
         .card-img-top {
-            height: 160px
-        }
-        .avatar {
-            width: 90px;
-            height: 90px
+            height: 180px;
         }
     }
 </style>
 {% endblock %} {% block content %}
+<div class="container mt-4 mb-3">
+    <a href="{{ url_for('views.home') }}" class="back-button">&larr; Home</a>
+</div>
 
-<header class="hero d-flex align-items-center text-center">
-    <div class="container">
-        <h1 class="display-5 text-white">Women’s Fashion: Past, Present, and Trends</h1>
-        <p class="lead text-white">Explore history, revolutions, and the trends!</p>
-    </div>
+
+<header class="hero">
+    <h1 class="display-4">Women’s Fashion: Past, Present, and Trends</h1>
 </header>
 
 <main class="mt-5">
-
-    <section id="trending-charts" class="section py-5" style="background : url('https://wallpapers.com/images/hd/newspaper-aesthetic-vintage-tabloids-cu9bihqi76r5b76c.jpg') no-repeat center center; background-size: cover; background-attachment: fixed; color:white;">
+    <section id="trending-charts" class="section py-5 trending-section">
         <div class="container">
-            <h2 class="mb-4">Latest Trending Charts of Clothes</h2>
-            <div class="row g-4 justify-content-center">
-                <div class="col-md-4">
-                    <div class="card h-100">
-                        <img src="https://codeontime.com/blog/2015/03/line-chart-type/image08.png" alt="card-img-top" alt="chart">
-                        <div class="card-footer text-end">
+            <h2 class="mb-4 text-center">Latest Trending Charts of Clothes</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="{{ url_for('static', filename='img/womentrends.png') }}" class="card-img-top" alt="Women trends">
+                        <div class="card-footer">
                             <a class="btn btn-sm btn-outline-dark" href="womentrends" target="_blank">View</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card h-100">
+
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
                         <img src="{{ url_for('static', filename='img/items.png') }}" class="card-img-top" alt="Items">
-                        <div class="card-footer text-end">
+                        <div class="card-footer">
                             <a class="btn btn-sm btn-outline-dark" href="items" target="_blank">View</a>
                         </div>
                     </div>
@@ -102,41 +139,46 @@
         </div>
     </section>
 
+    <section id="fashion-history" class="section py-5">
+        <div class="container">
+            <h2 class="mb-4">Women’s Fashion History</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="https://iandrummondvintage.com/cdn/shop/articles/four-flappers-drinking.jpg?v=1676304361" class="card-img-top" alt="1920s Flapper">
+                        <div class="card-body">
+                            <h5 class="card-title">1920s Flapper Style</h5>
+                            <p class="card-text">
+                                Think of the descriptor of flapper as being synonymous with trendy. The flapper look was the prevailing trend, and flappers were those girls who dressed the part. But it’s a term with a bit of a backstory—some thought the term referred to youths who opted
+                                to unbuckle their galoshes, letting them flap with each step. Others trace flapper back to a Victorian term used to describe young prostitutes. It took some consideration to rebrand flapper. In 1917 Vogue titled an article
+                                “The Term ‘Flapper’ Carries No Stigma.” By 1920, Frances Marion released the film The Flapper, starring Olive Thomas, and the rest was history. Every girl wanted to be a flapper.
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
-    <section id=" fashion-history " class="section py-5 ">
-        <div class="container ">
-            <h2 class="mb-4 ">Women’s Fashion History</h2>
-            <div class="row g-4 ">
-                <div class="col-md-4 ">
-                    <div class="card h-100 shadow-sm ">
-                        <img src="https://iandrummondvintage.com/cdn/shop/articles/four-flappers-drinking.jpg?v=1676304361 " class="card-img-top " alt="1920s Flapper ">
-                        <div class="card-body ">
-                            <h5 class="card-title ">1920s Flapper Style</h5>
-                            <p class="card-text ">Think of the descriptor of flapper as being synonymous with trendy. The flapper look was the prevailing trend, and flappers were those girls who dressed the part. But it’s a term with a bit of a backstory—some thought the term
-                                referred to youths who opted to unbuckle their galoshes, letting them flap with each step. Others trace flapper back to a Victorian term used to describe (clutch your pearls!) young prostitutes. It took some consideration
-                                to rebrand flapper. In 1917 Vogue titled an article “The Term ‘Flapper’ Carries No Stigma.” By 1920, Frances Marion released the film The Flapper, starring Olive Thomas and the rest was history. Every girl wanted to be
-                                a flapper.</p>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="https://retrocat.de/wp-content/uploads/2019/10/RetroCat_0467_50er-Jahre-Outfit_Ginger_Jackie_Totale.jpg" class="card-img-top" alt="1950s Elegance">
+                        <div class="card-body">
+                            <h5 class="card-title">1950s Elegance</h5>
+                            <p class="card-text">
+                                The 1950s wear of women represents a period in the fashion world when femininity and elegance came to the fore. Following the economic recovery and cultural changes of the post-World War II era, 1950s dresses emerged as symbols of feminine elegance with
+                                rounded shoulders, slim waistlines, and full skirts. The accentuated waists, full skirts, and higher-quality fabrics of this period marked the beginning of a new era in women's fashion.
+                            </p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 ">
-                    <div class="card h-100 shadow-sm ">
-                        <img src="https://retrocat.de/wp-content/uploads/2019/10/RetroCat_0467_50er-Jahre-Outfit_Ginger_Jackie_Totale.jpg " class="card-img-top " alt="1950s Elegance ">
-                        <div class="card-body ">
-                            <h5 class="card-title ">1950s Elegance</h5>
-                            <p class="card-text ">The 1950s wear of women represents a period in the fashion world when femininity and elegance came to the fore. Following the economic recovery and cultural changes of the post-World War II era, 1950s dresses emerged as symbols
-                                of feminine elegance with rounded shoulders, slim waistlines, and full skirts. The accentuated waists, full skirts and higher-quality fabrics of this period marked the beginning of a new era in women's fashion The 1950s
-                                wear of women represents a period in the fashion world when femininity and elegance came to the fore.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 ">
-                    <div class="card h-100 shadow-sm ">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/A_girl_in_Kensington.JPG/500px-A_girl_in_Kensington.JPG " class="card-img-top " alt="1970s Revolution ">
-                        <div class="card-body ">
-                            <h5 class="card-title ">1970s Revolution</h5>
-                            <p class="card-text ">Women's fashions in the late 1970s included cowl-neck shirts and sweaters, pantsuits, leisure suits, tracksuits, sundresses worn with tight T-shirts, strapless tops, lower-cut shirts, cardigans, velour shirts, tunics, robes,
-                                crop tops, tube tops, embroidered vests and jeans, knee-length skirts, loose satin pants, designer jeans, culottes, daisy dukes, and tennis shorts.</p>
+
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/A_girl_in_Kensington.JPG/500px-A_girl_in_Kensington.JPG" class="card-img-top" alt="1970s Revolution">
+                        <div class="card-body">
+                            <h5 class="card-title">1970s Revolution</h5>
+                            <p class="card-text">
+                                Women's fashions in the late 1970s included cowl-neck shirts and sweaters, pantsuits, leisure suits, tracksuits, sundresses worn with tight T-shirts, strapless tops, lower-cut shirts, cardigans, velour shirts, tunics, robes, crop tops, tube tops, embroidered
+                                vests and jeans, knee-length skirts, loose satin pants, designer jeans, culottes, daisy dukes, and tennis shorts.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -144,19 +186,20 @@
         </div>
     </section>
 
-    <section id="fashion-revolution " class="section py-5 bg-light ">
-        <div class="container ">
-            <h2 class="mb-4 ">The Fashion Revolution</h2>
-            <div class="row g-4 ">
-                <div class="col-md-6 ">
-                    <div class="card h-100 shadow-sm text-center p-3 ">
-                        <img src="https://www.womansworld.com/wp-content/uploads/2024/07/1940s.jpg?quality=86&strip=all " class="card-img-top mb-3 " alt="Revolution ">
+    <section id="fashion-revolution" class="section py-5 bg-light">
+        <div class="container">
+            <h2 class="mb-4">The Fashion Revolution</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 shadow-sm text-center p-3">
+                        <img src="https://www.womansworld.com/wp-content/uploads/2024/07/1940s.jpg?quality=86&strip=all" class="card-img-top mb-3" alt="1940s Revolution">
                         <p>Women entering the workforce and practical fashion changes.</p>
                     </div>
                 </div>
-                <div class="col-md-6 ">
-                    <div class="card h-100 shadow-sm text-center p-3 ">
-                        <img src="https://cdn.thecollector.com/wp-content/uploads/2021/07/social-movements-fashion-history-mary-quant-girls-manchester-1966.jpg " class="card-img-top mb-3 " alt="Revolution ">
+
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 shadow-sm text-center p-3">
+                        <img src="https://cdn.thecollector.com/wp-content/uploads/2021/07/social-movements-fashion-history-mary-quant-girls-manchester-1966.jpg" class="card-img-top mb-3" alt="1960s Revolution">
                         <p>1960s liberation movement influencing styles and freedom in clothing.</p>
                     </div>
                 </div>
