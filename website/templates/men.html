@@ -1,36 +1,34 @@
 {% extends "base.html" %} {% block title %}Men{% endblock %} {% block body_class %}men-page{% endblock %} {% block extra_head %}
 <style>
      :root {
-        --accent: #05081c;
-        --muted: #6b7280;
+        --accent: midnightblue;
+        --muted: black;
         --radius: 12px;
-        --glass: rgba(255, 255, 255, 0.06);
+        --glass: rgba(0, 0, 0, 0);
     }
     
     body {
-        font-family: 'Arial Black', Arial, sans-serif;
-        background: #fff;
-        color: #111;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        background-image: url("{{ url_for('static', filename='img/whitebackground.jpg') }}");
+        color: black;
     }
     
     .hero {
-        height: 60vh;
-        background: linear-gradient(135deg, #1e3a8a 0%, #636b2f 100%);
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        color: black;
+        border-radius: 12px;
+        box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.075);
+        padding: 3rem 2rem;
         text-align: center;
-        padding-top: 6rem;
+        margin: 2rem auto;
+        max-width: 900px;
+        min-height: auto;
+        height: auto;
     }
     
-    .hero .avatar {
-        width: 220px;
-        height: 210px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.12);
-        padding: 12px;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    .hero h1 {
+        font-size: 3rem;
+        color: black;
+        margin-bottom: 3rem;
     }
     
     .section {
@@ -40,61 +38,107 @@
     
     .accent {
         color: var(--accent);
-        font-weight: 700;
+        font-weight: bold;
+    }
+    
+    .trending-section {
+        background-image: url("https://images.unsplash.com/photo-1638874085157-91988ffd3fe5?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGFyaXMlMjBzdHJlZXR8ZW58MHx8MHx8fDA%3D");
+        background-size: cover;
+    }
+    
+    .card {
+        background: transparent;
+        overflow: hidden;
+        border: 1px solid rgba(0, 0, 0, 0.25);
+        border-radius: var(--radius);
+        box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.075);
     }
     
     .card-img-top {
-        height: 190px;
+        width: 100%;
+        height: 220px;
+        object-position: top;
         object-fit: cover;
-        background: #f4f6fb;
+        display: block;
+        background: whitesmoke;
     }
     
-    .fav {
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3));
-        border: 1px solid rgba(0, 0, 0, 0.05);
+    .card-body {
+        display: flex;
+        flex-direction: column;
     }
     
-    @media(max-width:800px) {
+    .card-text {
+        flex-grow: 1;
+        color: black;
+    }
+    
+    .card-footer {
+        background: white;
+        border-top: 1px solid gainsboro;
+        text-align: center;
+    }
+    
+    .back-button {
+        display: inline-block;
+        padding: 5px 10px;
+        color: gray;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 1.2rem;
+        transition: background-color 0.3s;
+        justify-content: left;
+    }
+    
+    .back-button:visited {
+        color: gray;
+    }
+    
+    .back-button:hover {
+        color: white;
+    }
+    
+    .back-button:active {
+        color: white;
+    }
+    
+    @media (max-width: 800px) {
         .hero {
-            height: 20vh
+            height: 30vh;
+            padding-top: 3rem;
         }
         .card-img-top {
-            height: 160px
-        }
-        .avatar {
-            width: 90px;
-            height: 90px
+            height: 180px;
         }
     }
 </style>
 {% endblock %} {% block content %}
+<div class="container mt-4 mb-3">
+    <a href="{{ url_for('views.home')}}" class="back-button">&larr; Home</a>
+</div>
 
-<header class="hero d-flex align-items-center text-center">
-    <div class="container">
-        <h1 class="display-5 text-white">Men’s Fashion: Past, Present, and Trends</h1>
-        <p class="lead text-white">Explore history, revolutions, and the trends!</p>
-    </div>
+<header class="hero">
+    <h1 class="display-5">Men’s Fashion: Past, Present, and Trends</h1>
 </header>
 
 <main class="mt-5">
-
-    <section id="trending-charts" class="section py-5" style="background : url('https://wallpapers.com/images/hd/newspaper-aesthetic-vintage-tabloids-cu9bihqi76r5b76c.jpg') no-repeat center center; background-size: cover; background-attachment: fixed; color:white;">
+    <section id="trending-charts" class="section py-5 trending-section">
         <div class="container">
-            <h2 class="mb-4">Latest Trending Charts of Clothes</h2>
-            <div class="row g-4 justify-content-center">
-                <div class="col-md-4">
-                    <div class="card h-100">
-                        <img src="https://codeontime.com/blog/2015/03/line-chart-type/image08.png" alt="card-img-top" alt="Chart">
-                        <div class="card-footer text-end">
-                            <a class="btn btn-sm btn-outline-primary" href="mentrends" target="_blank">View</a>
+            <h2 class="mb-4 text-center text-white">Latest Trending Charts of Clothes</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="{{ url_for('static', filename='img/mentrends.png') }}" class="card-img-top" alt="Chart">
+                        <div class="card-footer">
+                            <a class="btn btn-sm btn-outline-dark" href="mentrends" target="_blank">View</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card h-100">
-                        <img src="{{ url_for('static', filename='img/items.png') }}" class="card-img-top" alt="Items">
-                        <div class="card-footer text-end">
-                            <a class="btn btn-sm btn-outline-primary" href="itemsmen" target="_blank">View</a>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="{{ url_for('static', filename='img/menitems.png') }}" class="card-img-top" alt="Items">
+                        <div class="card-footer">
+                            <a class="btn btn-sm btn-outline-dark" href="itemsmen" target="_blank">View</a>
                         </div>
                     </div>
                 </div>
@@ -103,11 +147,11 @@
     </section>
 
 
-    <section id=" fashion-history " class="section py-5 ">
-        <div class="container ">
-            <h2 class="mb-4 ">History</h2>
+    <section id="fashion-history" class="section py-5">
+        <div class="container">
+            <h2 class="mb-4 ">Men's Fashion History</h2>
             <div class="row g-4 ">
-                <div class="col-md-4 ">
+                <div class="col-md-4 mb-4">
                     <div class="card h-100 shadow-sm ">
                         <img src="https://fashionhistory.fitnyc.edu/wp-content/uploads/2018/05/FHT21.jpg" class="card-img-top " alt="1920s">
                         <div class="card-body ">
@@ -117,7 +161,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 ">
+                <div class="col-md-4 mb-4">
                     <div class="card h-100 shadow-sm ">
                         <img src="https://media.gq-magazine.co.uk/photos/5d138e0c2881cc202f0a7786/master/w_2048%2Cc_limit/Buddy-Holly-GQ-16Jul15_getty_b.jpg" class="card-img-top " alt="1950s">
                         <div class="card-body ">
@@ -127,11 +171,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 ">
+                <div class="col-md-4 mb-4">
                     <div class="card h-100 shadow-sm ">
                         <img src="https://fashionhistory.fitnyc.edu/wp-content/uploads/2019/09/1970sLee21.jpg" class="card-img-top " alt="1970s">
-                        <div class="card-body ">
-                            <h5 class="card-title ">1970s</h5>
+                        <div class="card-body">
+                            <h5 class="card-title">1970s</h5>
                             <p class="card-text ">In the early 1970s, men’s fashion tried to emphasize a tall, lean figure. Turtlenecks, slim-fitting shirts, and tight-fitting flared pants all worked to popularize the silhouette.</p>
                         </div>
                     </div>
@@ -140,11 +184,11 @@
         </div>
     </section>
 
-    <section id="fashion-revolution " class="section py-5 bg-light ">
+    <section id="fashion-revolution " class="section py-5">
         <div class="container ">
             <h2 class="mb-4 ">The Revolution</h2>
-            <div class="row g-4 ">
-                <div class="col-md-6 ">
+            <div class="row">
+                <div class="col-md-6 mb-4">
                     <div class="card h-100 shadow-sm text-center p-3 ">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Los_Gatos_estamapados.jpeg/500px-Los_Gatos_estamapados.jpeg" class="card-img-top mb-3 " alt="Revolution ">
                         <p>The Peacock Revolution - Men incorporating feminine fashion elements such as floral prints, bright colours and complex patterns,</p>

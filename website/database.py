@@ -28,7 +28,7 @@ def seed_database():
     colors = ["Red", "Blue", "Black", "White", "Beige","Pink", "Yellow", "Brown", "Green", "Grey"]
     materials = ["Cotton", "Wool", "Polyester", "Leather", "Silk"]
     countries = ["Italy", "France", "China", "USA", "Japan", "Hungary", "South Korea"]
-    genders = ["male", "female", "unisex"]
+    genders = ["male", "female"]
     category_items = {
         1: ["Shirt", "Tee", "Blouse"],
         2: ["Pants", "Trousers", "Jeans"],

@@ -1,4 +1,8 @@
 {% extends "base.html" %} {% block title %}Women's Clothing{% endblock %} {% block content %}
+<div class="container mt-4 mb-3">
+    <a href="{{ url_for('auth.women') }}" class="back-button">&larr; Back</a>
+</div>
+
 <div class="container mt-4">
     <h2>Women's Clothing</h2>
 
@@ -29,6 +33,11 @@
 </div>
 
 <style>
+    body {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        background-image: url("{{ url_for('static', filename='img/whitebackground.jpg') }}");
+    }
+    
     .category-btn {
         width: 100%;
         background: black;
@@ -76,6 +85,29 @@
     .item-link {
         text-decoration: none;
         color: inherit;
+    }
+    
+    .back-button {
+        display: inline-block;
+        padding: 5px 10px;
+        color: gray;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 1.2rem;
+        transition: background-color 0.3s;
+        justify-content: left;
+    }
+    
+    .back-button:visited {
+        color: gray;
+    }
+    
+    .back-button:hover {
+        color: white;
+    }
+    
+    .back-button:active {
+        color: white;
     }
 </style>
 

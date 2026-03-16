@@ -4,20 +4,19 @@
         --accent: midnightblue;
         --muted: black;
         --radius: 12px;
-        --glass: rgba(0, 0, 0, 0.06);
+        --glass: rgba(0, 0, 0, 0);
     }
     
     body {
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-        background: white;
+        background-image: url("{{ url_for('static', filename='img/whitebackground.jpg') }}");
         color: black;
     }
     
     .hero {
-        background: white;
         color: black;
         border-radius: 12px;
-        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.075);
         padding: 3rem 2rem;
         text-align: center;
         margin: 2rem auto;
@@ -48,14 +47,16 @@
     }
     
     .card {
+        background: transparent;
         overflow: hidden;
-        border: none;
+        border: 1px solid rgba(0, 0, 0, 0.25);
         border-radius: var(--radius);
+        box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.075);
     }
     
     .card-img-top {
         width: 100%;
-        height: 220px;
+        height: 280px;
         object-fit: cover;
         display: block;
         background: whitesmoke;
@@ -80,8 +81,7 @@
     .back-button {
         display: inline-block;
         padding: 5px 10px;
-        background-color: black;
-        color: white;
+        color: gray;
         text-decoration: none;
         border-radius: 5px;
         font-size: 1.2rem;
@@ -89,8 +89,16 @@
         justify-content: left;
     }
     
-    a.back-button:hover {
-        background-color: black;
+    .back-button:visited {
+        color: gray;
+    }
+    
+    .back-button:hover {
+        color: white;
+    }
+    
+    .back-button:active {
+        color: white;
     }
     
     @media (max-width: 800px) {
@@ -116,7 +124,7 @@
 <main class="mt-5">
     <section id="trending-charts" class="section py-5 trending-section">
         <div class="container">
-            <h2 class="mb-4 text-center">Latest Trending Charts of Clothes</h2>
+            <h2 class="mb-4 text-center text-white">Latest Trending Charts of Clothes</h2>
             <div class="row justify-content-center">
                 <div class="col-md-4 mb-4">
                     <div class="card h-100 shadow-sm">
@@ -145,9 +153,9 @@
             <div class="row">
                 <div class="col-md-4 mb-4">
                     <div class="card h-100 shadow-sm">
-                        <img src="https://iandrummondvintage.com/cdn/shop/articles/four-flappers-drinking.jpg?v=1676304361" class="card-img-top" alt="1920s Flapper">
+                        <img src="https://iandrummondvintage.com/cdn/shop/articles/four-flappers-drinking.jpg?v=1676304361" class="card-img-top" alt="1920s">
                         <div class="card-body">
-                            <h5 class="card-title">1920s Flapper Style</h5>
+                            <h5 class="card-title">1920s</h5>
                             <p class="card-text">
                                 Think of the descriptor of flapper as being synonymous with trendy. The flapper look was the prevailing trend, and flappers were those girls who dressed the part. But it’s a term with a bit of a backstory—some thought the term referred to youths who opted
                                 to unbuckle their galoshes, letting them flap with each step. Others trace flapper back to a Victorian term used to describe young prostitutes. It took some consideration to rebrand flapper. In 1917 Vogue titled an article
@@ -159,9 +167,9 @@
 
                 <div class="col-md-4 mb-4">
                     <div class="card h-100 shadow-sm">
-                        <img src="https://retrocat.de/wp-content/uploads/2019/10/RetroCat_0467_50er-Jahre-Outfit_Ginger_Jackie_Totale.jpg" class="card-img-top" alt="1950s Elegance">
+                        <img src="https://retrocat.de/wp-content/uploads/2019/10/RetroCat_0467_50er-Jahre-Outfit_Ginger_Jackie_Totale.jpg" class="card-img-top" alt="1950s">
                         <div class="card-body">
-                            <h5 class="card-title">1950s Elegance</h5>
+                            <h5 class="card-title">1950s</h5>
                             <p class="card-text">
                                 The 1950s wear of women represents a period in the fashion world when femininity and elegance came to the fore. Following the economic recovery and cultural changes of the post-World War II era, 1950s dresses emerged as symbols of feminine elegance with
                                 rounded shoulders, slim waistlines, and full skirts. The accentuated waists, full skirts, and higher-quality fabrics of this period marked the beginning of a new era in women's fashion.
@@ -172,9 +180,9 @@
 
                 <div class="col-md-4 mb-4">
                     <div class="card h-100 shadow-sm">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/A_girl_in_Kensington.JPG/500px-A_girl_in_Kensington.JPG" class="card-img-top" alt="1970s Revolution">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/A_girl_in_Kensington.JPG/500px-A_girl_in_Kensington.JPG" class="card-img-top" alt="1970s">
                         <div class="card-body">
-                            <h5 class="card-title">1970s Revolution</h5>
+                            <h5 class="card-title">1970s</h5>
                             <p class="card-text">
                                 Women's fashions in the late 1970s included cowl-neck shirts and sweaters, pantsuits, leisure suits, tracksuits, sundresses worn with tight T-shirts, strapless tops, lower-cut shirts, cardigans, velour shirts, tunics, robes, crop tops, tube tops, embroidered
                                 vests and jeans, knee-length skirts, loose satin pants, designer jeans, culottes, daisy dukes, and tennis shorts.
@@ -186,7 +194,7 @@
         </div>
     </section>
 
-    <section id="fashion-revolution" class="section py-5 bg-light">
+    <section id="fashion-revolution" class="section py-5">
         <div class="container">
             <h2 class="mb-4">The Fashion Revolution</h2>
             <div class="row">

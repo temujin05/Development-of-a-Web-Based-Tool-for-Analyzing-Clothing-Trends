@@ -206,15 +206,10 @@ def item_detail(item_id):
 def trends():
     conn = get_db_connection()
     cursor = conn.cursor()
-
-    # 1. GET TOP TRENDS FOR THE CHART (Analysis)
     cursor.execute("SELECT year, AVG(trend_score) FROM trend_data GROUP BY year ORDER BY year")
     trend_rows = cursor.fetchall()
     labels = [row[0] for row in trend_rows]
     values = [row[1] for row in trend_rows]
-
-    # 2. RECOMMENDATION MODULE LOGIC
-    # We find items that match the user's preferred color/style and have high ratings
     cursor.execute("""
         SELECT name, color, material, rating 
         FROM clothing_item 
@@ -241,7 +236,6 @@ def womentrends():
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    # Get clothing items
     cursor.execute("""
         SELECT id, name
         FROM clothing_item
@@ -280,6 +274,55 @@ def womentrends():
 
     return render_template(
         "womentrends.html",
+        items=items,
+        labels=labels,
+        user=current_user
+    )
+
+@views.route('/mentrends')
+@login_required
+def mentrends():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT id, name
+        FROM clothing_item
+        WHERE gender_target IN ('male','unisex')
+        FETCH FIRST 4 ROWS ONLY
+    """)
+
+    items = []
+    labels = None
+
+    for row in cursor.fetchall():
+
+        item_id = row[0]
+        name = row[1]
+
+        cursor.execute("""
+            SELECT year, popularity
+            FROM trend_data
+            WHERE clothing_id = :1
+            ORDER BY year
+        """, [item_id])
+
+        trend_rows = cursor.fetchall()
+
+        labels = [r[0] for r in trend_rows]
+        values = [r[1] for r in trend_rows]
+
+        items.append({
+            "name": name,
+            "image": f"{name.lower().replace(' ','_')}.jpg",
+            "values": values
+        })
+
+    cursor.close()
+    conn.close()
+
+    return render_template(
+        "mentrends.html",
         items=items,
         labels=labels,
         user=current_user
