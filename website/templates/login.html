@@ -1,5 +1,38 @@
 {% extends "base.html" %} {% block title %}Login{% endblock %} {% block content %}
+<style>
+    body {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        background-image: url("{{ url_for('static', filename='img/whitebackground.jpg') }}");
+        color: black;
+    }
+    
+    .btn-primary {
+        background-color: black !important;
+        border-color: black !important;
+        display: inline-block;
+        padding: 5px 10px;
+        color: whitesmoke;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 1.2rem;
+        transition: background-color 0.3s;
+        justify-content: left;
+    }
+    
+    .btn-primary:visited {
+        color: gray;
+    }
+    
+    .btn-primary:hover {
+        color: white;
+    }
+    
+    .btn-primary:active {
+        color: white;
+    }
+</style>
 <form method="POST">
+    <br/>
     <h3 align="center">Login to explore out fashion trend forecasting!</h3>
     <div class="form-group">
         <label for="email">Email Address</label>
@@ -10,6 +43,15 @@
         <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
     </div>
     <br />
-    <button type="submit" class="btn btn-primary">Login</button>
+    <div class="text-center mt-3">
+        <button type="submit" class="btn btn-primary">Login</button>
+    </div>
+    <br/>
+    <div class="text-center mt-2">
+        <a href="{{ url_for('auth.forgot_password') }}" class="back-button">Forgot password?</a>
+    </div>
+    <div class="text-center container mt-4 mb-3">
+        <a href="{{ url_for('auth.sign_up') }}" class="back-button">Sign up</a>
+    </div>
 </form>
 {% endblock %}

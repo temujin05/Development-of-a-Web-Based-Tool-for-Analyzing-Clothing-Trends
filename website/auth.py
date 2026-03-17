@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
-from .import db
+from .import db, mail
 from flask_login import login_user, login_required, logout_user, current_user
+from flask_mail import Message
 
 
 auth = Blueprint('auth', __name__)
@@ -26,6 +27,29 @@ def login():
             flash('Email does not exist.', category='error')
     return render_template("login.html", user=current_user)
 
+@auth.route('/forgot-password', methods=['GET', 'POST'])
+def forgot_password():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        new_password = request.form.get('new_password')
+        confirm_password = request.form.get('confirm_password')
+
+        user = User.query.filter_by(email=email).first()
+
+        if not user:
+            flash('No account found with that email.', category='error')
+        elif len(new_password) < 7:
+            flash('Password must be at least 7 characters.', category='error')
+        elif new_password != confirm_password:
+            flash('Passwords do not match.', category='error')
+        else:
+            user.password = generate_password_hash(new_password, method='pbkdf2:sha256')
+            db.session.commit()
+            flash('Password updated successfully. Please log in.', category='success')
+            return redirect(url_for('auth.login'))
+
+    return render_template("forgot_password.html", user=current_user)
+
 @auth.route('/logout')
 @login_required
 def logout():
@@ -36,7 +60,7 @@ def logout():
 def sign_up():
     if request.method == 'POST':
         email = request.form.get('email')
-        first_name = request.form.get('firstName')
+        first_name = request.form.get('fullName')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
 
@@ -55,7 +79,7 @@ def sign_up():
             new_user = User(email=email, first_name=first_name, password=generate_password_hash(password1, method='pbkdf2:sha256'))
             db.session.add(new_user)
             db.session.commit()
-            login_user(user, remember=True)
+            login_user(new_user, remember=True)
             flash('Account created!', category='success')
             return redirect(url_for('views.home'))
 
@@ -65,7 +89,6 @@ def sign_up():
 @login_required
 def women():
     return render_template("women.html", user=current_user)
-
 
 @auth.route('/men')
 @login_required
