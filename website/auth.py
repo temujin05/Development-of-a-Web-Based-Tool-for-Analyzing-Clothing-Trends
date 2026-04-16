@@ -94,3 +94,8 @@ def women():
 @login_required
 def men():
     return render_template("men.html", user=current_user)
+
+@auth.route('/favorites')
+@login_required
+def favorites():
+    return render_template("favorites.html", user=current_user)

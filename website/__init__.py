@@ -13,8 +13,6 @@ def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'temujin'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-
-    # Mail configuration
     app.config['MAIL_SERVER'] = 'smtp.gmail.com'
     app.config['MAIL_PORT'] = 587
     app.config['MAIL_USE_TLS'] = True

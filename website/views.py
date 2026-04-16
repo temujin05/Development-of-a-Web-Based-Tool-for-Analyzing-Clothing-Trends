@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, jsonify
+from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for
 from flask_login import login_required, current_user
 from .models import Note
 from . import db
@@ -327,3 +327,131 @@ def mentrends():
         labels=labels,
         user=current_user
     )
+
+@views.route('/favorite/add/<int:item_id>', methods=['POST'])
+@login_required
+def add_favorite(item_id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT 1 FROM favorite
+        WHERE user_id = :1 AND clothing_id = :2
+    """, [current_user.id, item_id])
+
+    exists = cursor.fetchone()
+
+    if not exists:
+        cursor.execute("""
+            INSERT INTO favorite (user_id, clothing_id)
+            VALUES (:1, :2)
+        """, [current_user.id, item_id])
+
+        conn.commit()
+        flash("Item has been added to your favorites ", "success")
+    else:
+        flash("This item is already in your favorites.", "info")
+
+    cursor.close()
+    conn.close()
+
+    return redirect(request.referrer)
+
+@views.route('/favorites')
+@login_required
+def favorites():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    # 1. get favorites
+    cursor.execute("""
+        SELECT f.id, ci.id, ci.name, ci.color, ci.material, ci.price
+        FROM favorite f
+        JOIN clothing_item ci ON ci.id = f.clothing_id
+        WHERE f.user_id = :1
+    """, [current_user.id])
+
+    favorites = cursor.fetchall()
+
+    # 2. attach notes per favorite
+    items = []
+
+    for fav in favorites:
+        fav_id = fav[0]
+
+        cursor.execute("""
+            SELECT id, note_text
+            FROM favorite_note
+            WHERE favorite_id = :1
+            ORDER BY created_at DESC
+        """, [fav_id])
+
+        notes = cursor.fetchall()
+
+        items.append({
+            "fav_id": fav_id,
+            "item_id": fav[1],
+            "name": fav[2],
+            "color": fav[3],
+            "material": fav[4],
+            "price": fav[5],
+            "notes": notes
+        })
+
+    cursor.close()
+    conn.close()
+
+    return render_template("favorites.html",
+        items=items,
+        user=current_user)
+
+@views.route('/favorite/delete/<int:fav_id>', methods=['POST']) 
+@login_required 
+def delete_favorite(fav_id): 
+    conn = get_db_connection() 
+    cursor = conn.cursor() 
+    cursor.execute(""" DELETE FROM favorite WHERE id = :1 AND user_id = :2 """, [fav_id, current_user.id]) 
+    conn.commit() 
+    cursor.close() 
+    conn.close() 
+    return redirect(url_for('views.favorites'))
+
+@views.route('/favorite/<int:fav_id>/note', methods=['POST'])
+@login_required
+def add_favorite_note(fav_id):
+    note = request.form.get("note_text")
+
+    if not note:
+        flash("Note cannot be empty", "error")
+        return redirect(url_for('views.favorites'))
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        INSERT INTO favorite_note (favorite_id, note_text)
+        VALUES (:1, :2)
+    """, [fav_id, note])
+
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    return redirect(url_for('views.favorites'))
+
+@views.route('/favorite/note/<int:note_id>/delete', methods=['POST'])
+@login_required
+def delete_favorite_note(note_id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        DELETE FROM favorite_note
+        WHERE id = :1
+    """, [note_id])
+
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    return redirect(url_for('views.favorites'))
