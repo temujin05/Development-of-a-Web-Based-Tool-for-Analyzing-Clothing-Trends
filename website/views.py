@@ -369,7 +369,7 @@ def favorites():
         WHERE f.user_id = :1
     """, [current_user.id])
 
-    favorites = cursor.fetchall()
+    favorites = cursor.fetchall()[:10]
 
     items = []
 

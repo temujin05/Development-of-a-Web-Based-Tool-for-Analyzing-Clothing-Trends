@@ -1,0 +1,165 @@
+{% extends "base.html" %} {% block title %}My Favorites{% endblock %} {% block content %}
+
+<style>
+    body {
+        background-image: url("{{ url_for('static', filename='img/whitebackground.jpg') }}");
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+    
+    h2 {
+        font-weight: 700;
+        color: black;
+    }
+    
+    .text-muted {
+        font-size: 0.95rem;
+    }
+    
+    .card {
+        border: none;
+        border-radius: 14px;
+        transition: 0.25s ease;
+        background: white;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+    }
+    
+    .card-body {
+        padding: 18px;
+    }
+    
+    .card h5 {
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+    
+    .card p {
+        margin-bottom: 5px;
+        color: gray;
+    }
+    
+    textarea.form-control {
+        border-radius: 10px;
+        border: 1px solid #ddd;
+        resize: none;
+        transition: 0.2s;
+    }
+    
+    textarea.form-control:focus {
+        border-color: blue;
+        box-shadow: 0 0 0 0.15rem rgba(0, 123, 255, 0.15);
+    }
+    
+    .btn {
+        border-radius: 8px;
+        font-size: 0.85rem;
+    }
+    
+    .btn-outline-dark {
+        border-radius: 8px;
+    }
+    
+    .btn-primary {
+        background: black;
+        border: none;
+    }
+    
+    .btn-primary:hover {
+        background: gray;
+    }
+    
+    .btn-danger {
+        background: black;
+        border: none;
+    }
+    
+    .btn-danger:hover {
+        background: red;
+    }
+    
+    .row {
+        margin-top: 20px;
+    }
+    
+    .alert-info {
+        border-radius: 10px;
+    }
+</style>
+
+<div class="container mt-4">
+
+    <h2>My Favorites</h2>
+
+    {% if items|length == 0 %}
+    <div class="alert alert-info">
+        No favorites yet. Add some!
+    </div>
+    {% endif %}
+
+    <div class="row">
+
+        {% for item in items %}
+        <div class="col-md-4 mb-3">
+
+            <div class="card shadow-sm">
+                <div class="card-body">
+
+                    <h5>{{ item.name }}</h5>
+                    <p>{{ item.color }} | {{ item.material }}</p>
+                    <p>${{ item.price }}</p>
+
+                    <a href="{{ url_for('views.item_detail', item_id=item.item_id) }}" class="btn btn-outline-dark btn-sm">
+                    View
+                    </a>
+
+                    <form action="{{ url_for('views.add_favorite_note', fav_id=item.fav_id) }}" method="POST" class="mt-2">
+
+                        <textarea name="note_text" class="form-control" rows="2" placeholder="Write a note..."></textarea>
+
+                        <button class="btn btn-sm btn-primary mt-1">
+                         Add Note
+                        </button>
+
+                    </form>
+
+                    <hr>
+
+                    <div class="notes-box">
+                        {% for note in item.notes %}
+                        <div class="note-item d-flex justify-content-between align-items-center mb-1">
+
+                            <span>{{ note[1] }}</span>
+
+                            <form action="{{ url_for('views.delete_favorite_note', note_id=note[0]) }}" method="POST">
+                                <button class="btn btn-sm btn-danger">X</button>
+                            </form>
+
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <hr>
+
+
+                    <form action="{{ url_for('views.delete_favorite', fav_id=item.fav_id) }}" method="POST">
+
+                        <button class="btn btn-danger btn-sm w-100">
+                        Remove from Favorites
+                        </button>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}
