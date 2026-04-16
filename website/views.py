@@ -362,8 +362,6 @@ def add_favorite(item_id):
 def favorites():
     conn = get_db_connection()
     cursor = conn.cursor()
-
-    # 1. get favorites
     cursor.execute("""
         SELECT f.id, ci.id, ci.name, ci.color, ci.material, ci.price
         FROM favorite f
@@ -373,7 +371,6 @@ def favorites():
 
     favorites = cursor.fetchall()
 
-    # 2. attach notes per favorite
     items = []
 
     for fav in favorites:
@@ -386,7 +383,7 @@ def favorites():
             ORDER BY created_at DESC
         """, [fav_id])
 
-        notes = cursor.fetchall()
+        notes = cursor.fetchall() or []
 
         items.append({
             "fav_id": fav_id,
