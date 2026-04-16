@@ -407,10 +407,19 @@ def favorites():
 def delete_favorite(fav_id): 
     conn = get_db_connection() 
     cursor = conn.cursor() 
-    cursor.execute(""" DELETE FROM favorite WHERE id = :1 AND user_id = :2 """, [fav_id, current_user.id]) 
+    cursor.execute("""
+        DELETE FROM favorite_note
+        WHERE favorite_id = :1
+    """, [fav_id])
+    cursor.execute("""
+        DELETE FROM favorite 
+        WHERE id = :1 AND user_id = :2
+    """, [fav_id, current_user.id]) 
+
     conn.commit() 
     cursor.close() 
     conn.close() 
+
     return redirect(url_for('views.favorites'))
 
 @views.route('/favorite/<int:fav_id>/note', methods=['POST'])
