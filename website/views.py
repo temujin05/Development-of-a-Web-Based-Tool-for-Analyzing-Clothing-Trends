@@ -47,19 +47,6 @@ def home():
             flash('Note added!', category='success')
     return render_template("home.html", user=current_user)
 
-@views.route('/delete-note', methods=['POST'])
-def delete_note():
-    note = json.loads(request.data)
-    noteId = note['noteId']
-    note = Note.query.get(noteId)
-    if note:
-        if note.user_id == current_user.id:
-            db.session.delete(note)
-            db.session.commit()
-            
-    return jsonify({})
-
-from collections import defaultdict
 
 from collections import defaultdict
 
@@ -180,7 +167,7 @@ def item_detail(item_id):
         "price": row[3]
     }
 
-    # --- Trend data ---
+
     cursor.execute("""
         SELECT year, season, popularity
         FROM trend_data
@@ -455,6 +442,27 @@ def delete_favorite_note(note_id):
         DELETE FROM favorite_note
         WHERE id = :1
     """, [note_id])
+
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    return redirect(url_for('views.favorites'))
+
+
+@views.route('/favorite/note/edit/<int:note_id>', methods=['POST'])
+@login_required
+def edit_favorite_note(note_id):
+    new_text = request.form.get('note_text')
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        UPDATE favorite_note
+        SET note_text = :1
+        WHERE id = :2
+    """, [new_text, note_id])
 
     conn.commit()
     cursor.close()

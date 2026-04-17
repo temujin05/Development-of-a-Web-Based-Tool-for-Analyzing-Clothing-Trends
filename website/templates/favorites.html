@@ -67,7 +67,7 @@
         border: none;
     }
     
-    .btn-primary:hover {
+    c .btn-primary:hover {
         background: gray;
     }
     
@@ -129,13 +129,35 @@
 
                     <div class="notes-box">
                         {% for note in item.notes %}
-                        <div class="note-item d-flex justify-content-between align-items-center mb-1">
+                        <div class="note-item mb-2">
 
-                            <span>{{ note[1] }}</span>
 
-                            <form action="{{ url_for('views.delete_favorite_note', note_id=note[0]) }}" method="POST">
-                                <button class="btn btn-sm btn-danger">X</button>
-                            </form>
+                            <div id="note-display-{{ note[0] }}" class="d-flex justify-content-between align-items-center">
+                                <span>{{ note[1] }}</span>
+
+                                <div>
+                                    <button type="button" class="btn btn-sm btn-outline-dark" onclick="toggleEdit('{{ note[0] }}')">
+                                        Edit
+                                     </button>
+
+                                    <form action="{{ url_for('views.delete_favorite_note', note_id=note[0]) }}" method="POST" style="display:inline;">
+                                        <button class="btn btn-sm btn-danger">X</button>
+                                    </form>
+                                </div>
+                            </div>
+
+
+                            <div id="note-edit-{{ note[0] }}" style="display:none;">
+                                <form action="{{ url_for('views.edit_favorite_note', note_id=note[0]) }}" method="POST">
+
+                                    <textarea name="note_text" class="form-control mb-1" rows="2">{{ note[1] }}</textarea>
+
+                                    <button class="btn btn-sm btn-primary">Save</button>
+                                    <button type="button" class="btn btn-sm btn-secondary" onclick="toggleEdit('{{ note[0] }}')">
+                                        Cancel
+                                    </button>
+                                </form>
+                            </div>
 
                         </div>
                         {% endfor %}
@@ -144,9 +166,9 @@
                     <hr>
 
 
-                    <form action="{{ url_for('views.delete_favorite', fav_id=item.fav_id) }}" method="POST">
+                    <form action="{{ url_for( 'views.delete_favorite', fav_id=item.fav_id) }} " method="POST ">
 
-                        <button class="btn btn-danger btn-sm w-100">
+                        <button class="btn btn-danger btn-sm w-100 ">
                         Remove from Favorites
                         </button>
 
@@ -161,5 +183,19 @@
     </div>
 
 </div>
+<script>
+    function toggleEdit(noteId) {
+        const display = document.getElementById("note-display-" + noteId);
+        const edit = document.getElementById("note-edit-" + noteId);
+
+        if (edit.style.display === "none") {
+            edit.style.display = "block";
+            display.style.display = "none";
+        } else {
+            edit.style.display = "none";
+            display.style.display = "flex";
+        }
+    }
+</script>
 
 {% endblock %}
