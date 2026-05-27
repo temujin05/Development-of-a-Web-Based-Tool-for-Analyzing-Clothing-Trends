@@ -145,7 +145,7 @@ def item_detail(item_id):
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    # --- Item info ---
+
     cursor.execute("""
         SELECT name, color, material, price
         FROM clothing_item
@@ -356,7 +356,7 @@ def favorites():
         WHERE f.user_id = :1
     """, [current_user.id])
 
-    favorites = cursor.fetchall()[:10]
+    favorites = cursor.fetchall()
 
     items = []
 
@@ -389,7 +389,7 @@ def favorites():
         items=items,
         user=current_user)
 
-@views.route('/favorite/delete/<int:fav_id>', methods=['POST']) 
+@views.route('/favorite/delete/<int:fav_id>', methods=['GET', 'POST']) 
 @login_required 
 def delete_favorite(fav_id): 
     conn = get_db_connection() 
